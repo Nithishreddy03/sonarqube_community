@@ -1,10 +1,10 @@
-FROM armdocker.rnd.ericsson.se/centos:7
+FROM centos:7
 
-ARG SONARQUBE_VER
+ARG SONARQUBE_8.9.2-community
 
 ENV \
   SONARQUBE_HOME="/opt/sonarqube" \
-  SONARQUBE_VER="${SONARQUBE_VER}" \
+  SONARQUBE_8.9.2-community="${SONARQUBE_8.9.2-community}" \
   REPO_OFFICIAL="https://urldefense.com/v3/__https://binaries.sonarsource.com/Distribution__;!!IOGos0k!z75BPXvc_WSLoxP3xOSTSDxl0EcpoFuIbPZUdIOXkDrM0NmdlAjvfkmEV3gTwZzX9mSjtgfq$ " \
   SONARQUBE_UID="33333" \
   SONARQUBE_GID="23444" \
@@ -23,10 +23,10 @@ RUN set -x \
   && useradd --uid "${SONARQUBE_UID}" --gid "${SONARQUBE_GID}" --system --home "${SONARQUBE_HOME}" --shell /bin/bash sonarqube \
   \
   && cd /opt \
-  && curl -o sonarqube.zip -fSL "${REPO_OFFICIAL}"/sonarqube/sonarqube-"${SONARQUBE_VER}".zip \
-  && curl -o sonarqube.zip.asc -fSL "${REPO_OFFICIAL}"/sonarqube/sonarqube-"${SONARQUBE_VER}".zip.asc \
+  && curl -o sonarqube.zip -fSL "${REPO_OFFICIAL}"/sonarqube/sonarqube-"${SONARQUBE_8.9.2-community}".zip \
+  && curl -o sonarqube.zip.asc -fSL "${REPO_OFFICIAL}"/sonarqube/sonarqube-"${SONARQUBE_8.9.2-community}".zip.asc \
   && unzip sonarqube.zip \
-  && mv sonarqube-"${SONARQUBE_VER}" sonarqube \
+  && mv sonarqube-"${SONARQUBE_8.9.2-community}" sonarqube \
   && rm sonarqube.zip* \
   && rm "${SONARQUBE_HOME}"/data/README.txt \
   && rm "${SONARQUBE_HOME}"/conf/wrapper.conf \
@@ -42,7 +42,7 @@ RUN set -x \
 
 COPY EGADRootCA /etc/ssl/certs/
 
-EXPOSE 9000 9001 9002
+EXPOSE 9000 9001 9002 
 
 # VOLUME syntax is fragile
 # do not add commas after each volume
